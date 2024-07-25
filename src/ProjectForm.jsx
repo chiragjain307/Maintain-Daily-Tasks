@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ProjectForm = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +10,20 @@ const ProjectForm = () => {
     status: '',
     remarks: '',
   });
+  const [scriptURL, setScriptURL] = useState('');
+
+  useEffect(() => {
+    const storedScriptURL = localStorage.getItem('scriptURL');
+    if (storedScriptURL) {
+      setScriptURL(storedScriptURL);
+    } else {
+      const userScriptURL = prompt('Please enter your script URL:');
+      if (userScriptURL) {
+        localStorage.setItem('scriptURL', userScriptURL);
+        setScriptURL(userScriptURL);
+      }
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,26 +34,39 @@ const ProjectForm = () => {
     e.preventDefault();
     console.log('Form Data Submitted:', formData);
     setFormData({
-        project: '',
-        tasks: '',
-        startDate: '',
-        exptEndDate: '',
-        estdHours: '',
-        status: '',
-        remarks: '',
-      })
-    
-    const scriptURL = ''; //Excel Script
+      project: '',
+      tasks: '',
+      startDate: '',
+      exptEndDate: '',
+      estdHours: '',
+      status: '',
+      remarks: '',
+    });
+
     const form = e.target;
-    
+
     fetch(scriptURL, { method: 'POST', body: new FormData(form) })
       .then(response => alert("Thank you! Your form is submitted successfully."))
       .then(() => { window.location.reload(); })
       .catch(error => console.error('Error!', error.message));
   };
 
+  const handleChangeScriptURL = () => {
+    const newScriptURL = prompt('Please enter your new script URL:', scriptURL);
+    if (newScriptURL) {
+      localStorage.setItem('scriptURL', newScriptURL);
+      setScriptURL(newScriptURL);
+    }
+  };
+
   return (
-    <div className="max-w-2xl mx-auto bg-white p-8 rounded-md shadow-md">
+    <div className="max-w-2xl mx-auto bg-white p-8 rounded-md shadow-md relative">
+      <button
+        onClick={handleChangeScriptURL}
+        className="absolute top-4 right-4 bg-gray-200 p-2 rounded-md text-sm"
+      >
+        Change Script URL
+      </button>
       <h2 className="text-2xl font-semibold mb-6">Project Form</h2>
       <form onSubmit={handleSubmit} method='POST' name='daily-task' className="grid grid-cols-2 gap-6">
         {[
@@ -56,7 +83,7 @@ const ProjectForm = () => {
               {label}
             </label>
             <input
-            required
+              required
               type={type}
               name={name}
               id={name}
@@ -80,5 +107,3 @@ const ProjectForm = () => {
 };
 
 export default ProjectForm;
-
-
