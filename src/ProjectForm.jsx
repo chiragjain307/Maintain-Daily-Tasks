@@ -60,7 +60,7 @@ const ProjectForm = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-8 rounded-md shadow-md relative">
+    <div className="max-w-2xl mx-auto bg-white p-8 rounded-md shadow-md">
       <button
         onClick={handleChangeScriptURL}
         className="absolute top-4 right-4 bg-gray-200 p-2 rounded-md text-sm"
