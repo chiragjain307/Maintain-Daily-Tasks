@@ -81,98 +81,106 @@ const ProjectForm = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-8 rounded-md shadow-md ">
+    <div>
       <button
         onClick={handleChangeScriptURL}
         className="absolute top-4 right-4 bg-gray-200 p-2 rounded-md text-sm"
       >
         Change Script URL
       </button>
+
+      <button
+        onClick={handleToggleEdit}
+        className="absolute top-4 left-[45%] bg-gray-200 p-2 rounded-md text-sm"
+      >
+        {isEditing ? 'Stop Editing' : 'Edit Fields'}
+      </button>
+
       <button
         onClick={() => setIsModalOpen(true)}
         className="absolute top-4 left-4 bg-gray-200 p-2 rounded-md text-sm"
       >
         Google Sheet Code
       </button>
-      <h2 className="text-2xl font-semibold mb-6">Project Form</h2>
-      <button
-        onClick={handleToggleEdit}
-        className="mb-4 bg-blue-500 text-white p-2 rounded-md"
-      >
-        {isEditing ? 'Stop Editing' : 'Edit Fields'}
-      </button>
-      <form onSubmit={handleSubmit} method="POST" name="daily-task" className="grid grid-cols-2 gap-6">
-        {fields.map(({ label, name, type }, index) => (
-          <div key={index} className="col-span-2 sm:col-span-1">
-            {isEditing ? (
-              <div className="flex items-center">
-                <input
-                  required
-                  type="text"
-                  value={label}
-                  onChange={(e) => handleFieldChange(index, 'label', e.target.value)}
-                  placeholder="Label"
-                  className="mr-2 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-                <select
-                  value={type}
-                  onChange={(e) => handleFieldChange(index, 'type', e.target.value)}
-                  className="mr-2 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                >
-                  <option value="text">Text</option>
-                  <option value="date">Date</option>
-                  <option value="number">Number</option>
-                </select>
-                <button
-                  type="button"
-                  onClick={() => handleRemoveField(index)}
-                  className="bg-red-500 text-white p-2 rounded-md"
-                >
-                  Remove
-                </button>
-              </div>
-            ) : (
-              <>
-                <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-2">
-                  {label}
-                </label>
-                <input
-                  required
-                  type={type}
-                  name={name}
-                  id={name}
-                  value={formData[name] || ''}
-                  onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                />
-              </>
-            )}
-          </div>
-        ))}
-        {isEditing && (
-          <div className="col-span-2">
-            <button
-              type="button"
-              onClick={handleAddField}
-              className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-            >
-              Add Field
-            </button>
-          </div>
-        )}
-        {!isEditing && (
-          <div className="col-span-2">
-            <button
-              type="submit"
-              className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Submit
-            </button>
-          </div>
-        )}
-      </form>
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
+      <div className="max-w-2xl mx-auto bg-purple-800 p-8 rounded-md shadow-md ">
+
+        <h2 className="text-2xl font-semibold mb-6 text-white text-center">Project Form</h2>
+
+        <form onSubmit={handleSubmit} method="POST" name="daily-task" className="grid grid-cols-2 gap-6">
+          {fields.map(({ label, name, type }, index) => (
+            <div key={index} className="col-span-2 sm:col-span-1">
+              {isEditing ? (
+                <div className="flex items-center">
+                  <input
+                    required
+                    type="text"
+                    value={label}
+                    onChange={(e) => handleFieldChange(index, 'label', e.target.value)}
+                    placeholder="Label"
+                    className="mr-2 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                  <select
+                    value={type}
+                    onChange={(e) => handleFieldChange(index, 'type', e.target.value)}
+                    className="mr-2 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  >
+                    <option value="text">Text</option>
+                    <option value="date">Date</option>
+                    <option value="number">Number</option>
+                  </select>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveField(index)}
+                    className="bg-red-500 text-white p-2 rounded-md"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <label htmlFor={name} className="block text-sm font-medium mb-2 text-white">
+                    {label}
+                  </label>
+                  <input
+                    required
+                    type={type}
+                    name={name}
+                    id={name}
+                    value={formData[name] || ''}
+                    onChange={handleChange}
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  />
+                </>
+              )}
+            </div>
+          ))}
+          {isEditing && (
+            <div className="col-span-2">
+              <button
+                type="button"
+                onClick={handleAddField}
+                className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+              >
+                Add Field
+              </button>
+            </div>
+          )}
+          {!isEditing && (
+            <div className="col-span-2">
+              <button
+                type="submit"
+                className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Submit
+              </button>
+            </div>
+          )}
+        </form>
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      </div>
     </div>
+
   );
 };
 
