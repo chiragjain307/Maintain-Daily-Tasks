@@ -91,7 +91,7 @@ const ProjectForm = () => {
 
       <button
         onClick={handleToggleEdit}
-        className="absolute top-4 left-[45%] bg-gray-200 p-2 rounded-md text-sm"
+        className="absolute top-4 right-[13%] bg-gray-200 p-2 rounded-md text-sm"
       >
         {isEditing ? 'Stop Editing' : 'Edit Fields'}
       </button>
@@ -103,9 +103,9 @@ const ProjectForm = () => {
         Google Sheet Code
       </button>
 
-      <div className="max-w-2xl mx-auto bg-purple-800 p-8 rounded-md shadow-md ">
+      <div className="max-w-2xl mx-auto bg-[#850d7d] p-8 rounded-md shadow-md text-white">
 
-        <h2 className="text-2xl font-semibold mb-6 text-white text-center">Project Form</h2>
+        <h2 className="text-2xl font-semibold mb-6 text-center">Daily Tasks</h2>
 
         <form onSubmit={handleSubmit} method="POST" name="daily-task" className="grid grid-cols-2 gap-6">
           {fields.map(({ label, name, type }, index) => (
@@ -118,12 +118,12 @@ const ProjectForm = () => {
                     value={label}
                     onChange={(e) => handleFieldChange(index, 'label', e.target.value)}
                     placeholder="Label"
-                    className="mr-2 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="mr-2 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent"
                   />
                   <select
                     value={type}
                     onChange={(e) => handleFieldChange(index, 'type', e.target.value)}
-                    className="mr-2 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="mr-2 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent"
                   >
                     <option value="text">Text</option>
                     <option value="date">Date</option>
@@ -132,14 +132,14 @@ const ProjectForm = () => {
                   <button
                     type="button"
                     onClick={() => handleRemoveField(index)}
-                    className="bg-red-500 text-white p-2 rounded-md"
+                    className="bg-red-500  p-2 rounded-md"
                   >
                     Remove
                   </button>
                 </div>
               ) : (
                 <>
-                  <label htmlFor={name} className="block text-sm font-medium mb-2 text-white">
+                  <label htmlFor={name} className="block text-sm font-medium mb-2 ">
                     {label}
                   </label>
                   <input
@@ -149,7 +149,7 @@ const ProjectForm = () => {
                     id={name}
                     value={formData[name] || ''}
                     onChange={handleChange}
-                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="mt-1 block w-full px-3 py-2 border-2 outline-none border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-transparent"
                   />
                 </>
               )}
@@ -160,7 +160,7 @@ const ProjectForm = () => {
               <button
                 type="button"
                 onClick={handleAddField}
-                className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium  bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
               >
                 Add Field
               </button>
@@ -170,7 +170,7 @@ const ProjectForm = () => {
             <div className="col-span-2">
               <button
                 type="submit"
-                className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium  bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Submit
               </button>
