@@ -81,21 +81,7 @@ const ProjectForm = () => {
   };
 
   return (
-    <div>
-      <button
-        onClick={handleChangeScriptURL}
-        className="absolute top-4 right-4 bg-gray-200 p-2 rounded-md text-sm"
-      >
-        Change Script URL
-      </button>
-
-      <button
-        onClick={handleToggleEdit}
-        className="absolute top-4 right-[13%] bg-gray-200 p-2 rounded-md text-sm"
-      >
-        {isEditing ? 'Stop Editing' : 'Edit Fields'}
-      </button>
-
+    <div className=''>
       <button
         onClick={() => setIsModalOpen(true)}
         className="absolute top-4 left-4 bg-gray-200 p-2 rounded-md text-sm"
@@ -103,7 +89,27 @@ const ProjectForm = () => {
         Google Sheet Code
       </button>
 
-      <div className="max-w-2xl mx-auto bg-[#850d7d] p-8 rounded-md shadow-md text-white">
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
+      <div className='absolute top-4 right-4 gap-3 flex'>
+
+        <button
+          onClick={handleToggleEdit}
+          className=" top-4 right-[13%] bg-gray-200 p-2 rounded-md text-sm"
+        >
+          {isEditing ? 'Stop Editing' : 'Edit Fields'}
+        </button>
+
+        <button
+          onClick={handleChangeScriptURL}
+          className=" top-4 right-4 bg-gray-200 p-2 rounded-md text-sm"
+        >
+          Change Script URL
+        </button>
+
+      </div>
+
+      <div className="max-w-2xl mx-auto bg-transparent p-8 rounded-md shadow-md text-white border-[1px] backdrop-blur-xl">
 
         <h2 className="text-2xl font-semibold mb-6 text-center">Daily Tasks</h2>
 
@@ -177,8 +183,8 @@ const ProjectForm = () => {
             </div>
           )}
         </form>
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       </div>
+
     </div>
 
   );
