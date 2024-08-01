@@ -9,9 +9,7 @@ function App() {
     style={{
       backgroundImage: `url(${bgImage})`,
       backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      // backgroundAttachment: 'fixed',
-     
+      backgroundPosition: 'center',   
     }}>
       <ProjectForm />
     </div>

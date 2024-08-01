@@ -5,13 +5,16 @@ const ProjectForm = () => {
   const [formData, setFormData] = useState({ Project: '', Tasks: '' });
   const [scriptURL, setScriptURL] = useState('');
   const [fields, setFields] = useState([
-    { label: 'Project', name: 'Project', type: 'text' },
-    { label: 'Tasks', name: 'Tasks', type: 'text' },
+    { label: 'Project Name', name: 'Project Name', type: 'text' },
+    { label: 'Date', name: 'Date', type: 'date' },
   ]);
   const [isEditing, setIsEditing] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
+    const today = new Date().toISOString().split('T')[0];
+    setFormData((prevData) => ({ ...prevData, Date: today }));
+
     const storedScriptURL = localStorage.getItem('scriptURL');
     if (storedScriptURL) {
       setScriptURL(storedScriptURL);
@@ -40,10 +43,14 @@ const ProjectForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch(scriptURL, { method: 'POST', body: new FormData(e.target) })
-      .then(() => alert('Thank you! Your form is submitted successfully.'))
+      .then(() => {
+        alert('Thank you! Your form is submitted successfully.');
+        localStorage.removeItem('formData');
+      })
       .then(() => window.location.reload())
-      .catch(error => console.error('Error!', error.message));
+      .catch((error) => console.error('Error!', error.message));
   };
+  
 
   const handleChangeScriptURL = () => {
     const newScriptURL = prompt('Please enter your new script URL:', scriptURL);
@@ -97,21 +104,21 @@ const ProjectForm = () => {
           onClick={handleToggleEdit}
           className=" top-4 right-[13%] bg-gray-200 p-2 rounded-md text-sm"
         >
-          {isEditing ? 'Stop Editing' : 'Edit Fields'}
+          {isEditing ? 'Stop Editing' : 'Edit Form Fields'}
         </button>
 
         <button
           onClick={handleChangeScriptURL}
           className=" top-4 right-4 bg-gray-200 p-2 rounded-md text-sm"
         >
-          Change Script URL
+          Script URL
         </button>
 
       </div>
 
       <div className="max-w-2xl mx-auto bg-transparent p-8 rounded-md shadow-md text-white border-[1px] backdrop-blur-xl">
 
-        <h2 className="text-2xl font-semibold mb-6 text-center">Daily Tasks</h2>
+        <h2 className="text-2xl font-semibold mb-6 text-center">Your Daily Tasks</h2>
 
         <form onSubmit={handleSubmit} method="POST" name="daily-task" className="grid grid-cols-2 gap-6">
           {fields.map(({ label, name, type }, index) => (
