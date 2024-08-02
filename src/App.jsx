@@ -1,6 +1,7 @@
 import React from 'react';
 import ProjectForm from './ProjectForm';
 import bgImage from './assets/bgImage.jpg'
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
       backgroundPosition: 'center',   
     }}>
       <ProjectForm />
+      <Analytics />
     </div>
   )
 }
